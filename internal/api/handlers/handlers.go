@@ -1,6 +1,8 @@
 package handlers
 
-import "net/http"
+import (
+	"net/http"
+)
 
 type IHandlers interface {
 	Hi(w http.ResponseWriter, r *http.Request)

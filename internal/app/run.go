@@ -1,8 +1,11 @@
 package app
 
-import "log/slog"
+import (
+	"net/http"
+)
 
-func (a *App) Run(logger *slog.Logger) error {
-	logger.Info("HTTP server is running on Port:", a.appConfig.App.PortHTTP)
-	return nil
+func (a *App) Run(handler http.Handler) error {
+	a.server.logger.Info("HTTP server is running", "Port", a.appConfig.Port)
+
+	return http.ListenAndServe(a.appConfig.Port, handler)
 }

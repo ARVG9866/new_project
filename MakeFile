@@ -1,0 +1,8 @@
+migrate-create:
+	migrate create -ext sql -dir migrations -seq initial_tables
+
+migrate-up:
+	migrate -path migrations -database "postgresql://lingua:lingua@localhost:5432/lingua?sslmode=disable" up
+
+migrate-down:
+	migrate -path migrations -database "postgresql://lingua:lingua@localhost:5432/lingua?sslmode=disable" down

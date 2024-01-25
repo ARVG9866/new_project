@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"log/slog"
-	"net/http"
 	"os"
 
 	"github.com/ARVG9866/new_project/internal/api/handlers"
+	"github.com/ARVG9866/new_project/internal/app"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -21,9 +21,15 @@ func main() {
 	handler := handlers.NewHandler()
 	router := chi.NewRouter()
 
-	router.Get("/helloWorld", handler.Hi)
-	_ = ctx
+	router.Get("/hi", handler.Hi)
 
-	http.ListenAndServe(":8000", router)
+	a, err := app.NewApp(ctx)
+	if err != nil {
+		logger.Error("", err)
+	}
 
+	err = a.Run(router)
+	if err != nil {
+		logger.Error("", err)
+	}
 }
